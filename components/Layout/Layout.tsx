@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ children, keywords, title, description 
                 <meta name="description" content={description} />
             </Head>
             <Header />
-            <main className="container mx-auto my-7">{children}</main>
+            <main className="flex flex-col justify-center max-w-2xl mx-auto">{children}</main>
         </div>
     );
 };

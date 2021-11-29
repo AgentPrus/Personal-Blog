@@ -6,7 +6,7 @@ import { HiMoon, HiSun } from 'react-icons/hi';
 const navClasses =
     'flex items-center justify-between w-full relative max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pt-8 pb-8 sm:pb-16 text-gray-900 dark:text-gray-100';
 const linkClasses =
-    'font-normal text-black dark:text-gray-400 hidden md:inline-block p-1 sm:px-3 sm:py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-all text-xl';
+    'font-normal text-black dark:text-white hidden md:inline-block p-1 sm:px-3 sm:py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-all text-xl';
 
 const Header = () => {
     const [mounted, setMounted] = useState(false);
