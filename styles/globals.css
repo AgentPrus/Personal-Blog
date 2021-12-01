@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.blog-text ul,
+ol {
+    font-size: 110%;
+    line-height: 2.3;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.blog-text h1 {
+    font-size: 35px;
+}
+
+.blog-text pre {
+    margin: 1rem 0;
+}
+
+.blog-text .hljs {
+    font-size: 0.8rem;
+}
+
+.blog-text h2,
+h3,
+h4 {
+    font-size: 27px;
+}

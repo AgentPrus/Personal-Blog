@@ -7,7 +7,7 @@ const files = fs.readdirSync(path.join('posts'));
 
 export function getPosts() {
     const posts = files.map((fileName) => {
-        const slug = fileName.replace('md', '');
+        const slug = fileName.replace('.md', '');
 
         const markDownWithMeta = fs.readFileSync(path.join('posts', fileName), 'utf-8');
 
