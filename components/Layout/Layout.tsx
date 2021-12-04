@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Footer from '../Footer';
 import Header from '../Header';
 import { LayoutProps } from './layout.props';
 
@@ -11,7 +12,10 @@ const Layout: React.FC<LayoutProps> = ({ children, keywords, title, description 
                 <meta name="description" content={description} />
             </Head>
             <Header />
-            <main className="flex flex-col justify-center max-w-2xl mx-auto">{children}</main>
+            <main className="flex flex-col justify-center max-w-2xl mx-auto h-full">
+                {children}
+            </main>
+            <Footer />
         </div>
     );
 };
