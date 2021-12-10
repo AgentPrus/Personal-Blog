@@ -5,14 +5,14 @@ import { LayoutProps } from './layout.props';
 
 const Layout: React.FC<LayoutProps> = ({ children, keywords, title, description }) => {
     return (
-        <div>
+        <div className="bg-white dark:bg-gray-900">
             <Head>
                 <title>{title}</title>
                 <meta name="keywords" content={keywords} />
                 <meta name="description" content={description} />
             </Head>
             <Header />
-            <main className="flex flex-col justify-center max-w-2xl mx-auto h-full">
+            <main className="flex flex-col justify-center px-8 md:max-w-2xl mx-auto">
                 {children}
             </main>
             <Footer />

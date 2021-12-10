@@ -2,14 +2,24 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { HiMoon, HiSun } from 'react-icons/hi';
+import classNames from 'classnames';
+
+import styles from './header.module.css';
+import MobileNavLinks from '../MobileNavLinks';
 
 const navClasses =
-    'flex items-center justify-between w-full relative border-gray-200 max-w-2xl mx-auto pt-8 pb-4 dark:border-gray-700 text-gray-900';
+    'flex items-center justify-between w-full relative border-gray-200 max-w-2xl mx-auto pt-8 pb-4 px-5 dark:border-gray-700 text-gray-900';
 const linkClasses =
-    'font-medium hidden md:inline-block p-1 sm:px-3 sm:py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-all text-xl light:text-black dark:text-gray-200';
+    'font-medium hidden md:inline-block sm:px-3 sm:py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-all text-xl light:text-black dark:text-gray-200';
 
 const Header = () => {
     const [mounted, setMounted] = useState(false);
+    const [isMobileNavIsOpen, setIsMobileNavIsOpen] = useState(false);
+
+    const active = classNames(styles['mobile-menu'], {
+        [styles.open]: isMobileNavIsOpen,
+    });
+
     const { systemTheme, theme, setTheme } = useTheme();
 
     const renderThemeChanger = () => {
@@ -29,27 +39,42 @@ const Header = () => {
     }, []);
 
     return (
-        <header className="border-b dark:border-purple-400 mb-8 max-w-4xl mx-auto">
-            <nav className={navClasses}>
-                <div>
-                    <Link href="/">
-                        <a className={linkClasses}>Home</a>
-                    </Link>
-                    <Link href="/blog">
-                        <a className={linkClasses}>Blog</a>
-                    </Link>
-                    <Link href="/about">
-                        <a className={linkClasses}>About</a>
-                    </Link>
-                </div>
-                <div
-                    className="p-1 sm:px-3 sm:py-2 rounded-lg transition-all hover:bg-gray-200 dark:text-purple-400 dark:hover:bg-purple-700 cursor-pointer"
-                    onClick={() => (theme === 'light' ? setTheme('dark') : setTheme('light'))}
-                >
-                    {renderThemeChanger()}
-                </div>
-            </nav>
-        </header>
+        <>
+            <header className="border-b dark:border-purple-400 mb-8 max-w-4xl mx-auto">
+                <nav className={navClasses}>
+                    <span className="md:hidden nav-links">
+                        <button
+                            className={active}
+                            onClick={() =>
+                                setIsMobileNavIsOpen((isMobileNavIsOpen) => !isMobileNavIsOpen)
+                            }
+                        >
+                            <div className={styles['bar-one'] + ' bg-black dark:bg-purple-400'} />
+                            <div className={styles['bar-two'] + ' bg-black dark:bg-purple-400'} />
+                            <div className={styles['bar-three'] + ' bg-black dark:bg-purple-400'} />
+                        </button>
+                    </span>
+                    <div>
+                        <Link href="/">
+                            <a className={linkClasses}>Home</a>
+                        </Link>
+                        <Link href="/blog">
+                            <a className={linkClasses}>Blog</a>
+                        </Link>
+                        <Link href="/about">
+                            <a className={linkClasses}>About</a>
+                        </Link>
+                    </div>
+                    <div
+                        className="p-1 sm:px-3 sm:py-2 rounded-lg transition-all hover:bg-gray-200 dark:text-purple-400 dark:hover:bg-purple-700 cursor-pointer"
+                        onClick={() => (theme === 'light' ? setTheme('dark') : setTheme('light'))}
+                    >
+                        {renderThemeChanger()}
+                    </div>
+                </nav>
+            </header>
+            <MobileNavLinks isOpen={isMobileNavIsOpen} />
+        </>
     );
 };
 
