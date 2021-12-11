@@ -28,7 +28,13 @@ const PostPage: NextPage<PostPageProps> = ({ frontmatter, content, slug }) => {
                     <p className="text-gray-500">{frontmatter.date}</p>
                     <p className="text-gray-500">{frontmatter.category}</p>
                 </div>
-                <Image src={frontmatter.cover_image} width={800} height={600} />
+                <Image
+                    src={frontmatter.cover_image}
+                    width={800}
+                    height={600}
+                    alt="post"
+                    className="rounded-lg shadow-lg"
+                />
             </div>
             <div className="blog-text mt-2">
                 <div
