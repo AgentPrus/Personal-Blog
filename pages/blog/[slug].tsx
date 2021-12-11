@@ -2,47 +2,15 @@ import { NextPage } from 'next';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { marked } from 'marked';
-
-import hljs from 'highlight.js';
-
-import Image from 'next/image';
 
 import Layout from '@/components/Layout';
 import { PostPageProps } from '@/models/post.props';
-
-import { useEffect } from 'react';
-
-import 'highlight.js/styles/monokai-sublime.css';
+import PostContent from '@/components/PostContent';
 
 const PostPage: NextPage<PostPageProps> = ({ frontmatter, content, slug }) => {
-    useEffect(() => {
-        hljs.highlightAll();
-    }, []);
-
     return (
         <Layout title={frontmatter.title}>
-            <div>
-                <h1 className="font-bold text-3xl mt-2">{frontmatter.title}</h1>
-                <div className="flex justify-between items-center my-2">
-                    <p className="text-gray-500">{frontmatter.date}</p>
-                    <p className="text-gray-500">{frontmatter.category}</p>
-                </div>
-                <Image
-                    src={frontmatter.cover_image}
-                    width={800}
-                    height={600}
-                    alt="post"
-                    className="rounded-lg shadow-lg"
-                />
-            </div>
-            <div className="blog-text mt-2">
-                <div
-                    dangerouslySetInnerHTML={{
-                        __html: marked(content),
-                    }}
-                ></div>
-            </div>
+            <PostContent frontmatter={frontmatter} content={content} />
         </Layout>
     );
 };
