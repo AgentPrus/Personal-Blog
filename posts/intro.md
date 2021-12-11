@@ -1,6 +1,6 @@
 ---
 title: 'Welcome to My Blog'
-date: 'December 27, 2021'
+date: 'December 11, 2021'
 excerpt: "A little story who I'm and what this blog about"
 cover_image: '/images/posts/intro.jpg'
 category: 'Other'
