@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 import styles from './mobileNavLinks.module.css';
 
-const mobileNavLinkClasses = 'py-4 font-medium text-lg border-b';
+const mobileNavLinkClasses = 'py-4 font-medium text-lg border-b dark:text-gray-200';
 
 const MobileNavLinks: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
     const displayMobileNavLinks = classNames(styles['mobile-nav-wrapper'], {

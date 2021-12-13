@@ -1,21 +1,17 @@
-import { useEffect } from 'react';
 import Image from 'next/image';
-import hljs from 'highlight.js';
-import { marked } from 'marked';
 
 import { PostContentProps } from './postContent.props';
 
 import 'highlight.js/styles/monokai-sublime.css';
+import { useMarked } from 'hooks/useMarked';
 
 const PostContent: React.FC<PostContentProps> = ({ frontmatter, content }) => {
-    useEffect(() => {
-        hljs.highlightAll();
-    }, []);
+    const { marked } = useMarked();
 
     return (
         <>
             <div>
-                <h1 className="font-bold text-3xl mt-2">{frontmatter.title}</h1>
+                <h1 className="font-bold text-3xl mt-2 dark:text-gray-200">{frontmatter.title}</h1>
                 <div className="flex justify-between items-center my-2">
                     <p className="text-gray-500">{frontmatter.date}</p>
                     <p className="text-gray-500">{frontmatter.category}</p>

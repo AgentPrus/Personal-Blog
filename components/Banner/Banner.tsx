@@ -6,7 +6,7 @@ const Banner = () => {
             <h1 className="text-4xl sm:text-6xl lg:text-7xl leading-none font-extrabold tracking-tight text-gray-900 dark:text-gray-200 mt-10 mb-8 sm:mt-14 sm:mb-10">
                 Let`s make web a better place
             </h1>
-            <h3 className="max-w-screen-lg text-lg sm:text-2xl sm:leading-10 font-medium mb-10 sm:mb-11">
+            <h3 className="max-w-screen-lg text-lg sm:text-2xl sm:leading-10 font-medium mb-10 sm:mb-11 dark:text-gray-200">
                 By sharing knowledge, solving problems and building better software together.
             </h3>
             <Link href="/blog">
