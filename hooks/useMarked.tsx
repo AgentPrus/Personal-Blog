@@ -8,6 +8,10 @@ export const useMarked = () => {
         return `<p class="dark:text-gray-200">${text}</p>`;
     };
 
+    renderer.link = (href: string, title: string, text: string) => {
+        return `<a class="dark:text-gray-200 underline" href="${href}" target="_blank">${text}</a>`;
+    };
+
     renderer.heading = (text: string, level: 1 | 2 | 3 | 4 | 5 | 6) => {
         let output;
         switch (level) {
