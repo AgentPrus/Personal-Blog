@@ -1,11 +1,5 @@
-import { PostProps } from '@/components/Post/post.props';
+import { ArticleRelationResponseCollection } from 'generated/graphql-types';
 
 export interface PostsProps {
-    posts: PostProps[];
-}
-
-export interface PostPageProps {
-    slug: PostProps['slug'];
-    frontmatter: PostProps['frontmatter'];
-    content: string;
+    articles: ArticleRelationResponseCollection;
 }
