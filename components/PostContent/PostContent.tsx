@@ -1,35 +1,38 @@
-import Image from 'next/image';
-
-import { PostContentProps } from './postContent.props';
-
 import 'highlight.js/styles/monokai-sublime.css';
 import { useMarked } from 'hooks/useMarked';
+import { ArticleEntity } from 'generated/graphql-types';
 
-const PostContent: React.FC<PostContentProps> = ({ frontmatter, content }) => {
+import Categories from '../Categories';
+import dayjs from 'dayjs';
+import CustomImage from '../CustomImage';
+
+const PostContent: React.FC<ArticleEntity> = ({ attributes }) => {
     const { marked } = useMarked();
 
     return (
         <>
             <div>
-                <h1 className="font-bold text-3xl mt-2 dark:text-gray-200">{frontmatter.title}</h1>
+                <h1 className="font-bold text-3xl mt-2 dark:text-gray-200">{attributes?.title}</h1>
                 <div className="flex justify-between items-center my-2">
-                    <p className="text-gray-500">{frontmatter.date}</p>
-                    <p className="text-gray-500">{frontmatter.category}</p>
+                    <p className="text-gray-500">
+                        {dayjs(attributes?.publicationDate).format('MMMM D, YYYY')}
+                    </p>
+                    {attributes?.categories?.data && (
+                        <Categories data={attributes?.categories?.data} />
+                    )}
                 </div>
-                <Image
-                    src={frontmatter.cover_image}
-                    width={800}
-                    height={600}
-                    alt="post"
-                    className="rounded-lg shadow-lg"
-                />
+                {attributes?.cover?.data?.attributes && (
+                    <CustomImage attributes={attributes?.cover?.data?.attributes} />
+                )}
             </div>
             <div className="blog-text mt-2">
-                <div
-                    dangerouslySetInnerHTML={{
-                        __html: marked(content),
-                    }}
-                ></div>
+                {attributes?.content && (
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: marked(attributes?.content),
+                        }}
+                    ></div>
+                )}
             </div>
         </>
     );

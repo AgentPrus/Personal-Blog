@@ -1,20 +1,28 @@
-import { PostProps } from './post.props';
 import Link from 'next/link';
+import { ArticleEntity } from 'generated/graphql-types';
+import dayjs from 'dayjs';
+import Categories from '../Categories';
 
-const Post: React.FC<PostProps> = ({ slug, frontmatter: { title, date, excerpt, category } }) => {
+const Post: React.FC<ArticleEntity> = ({ attributes }) => {
     return (
         <div className="w-full mb-8">
-            <Link href={`/blog/${slug}`}>
+            <Link href={`/blog/${attributes?.slug}`}>
                 <a>
                     <h3 className="mb-2 font-bold text-xl light:text-black dark:text-gray-200">
-                        {title}
+                        {attributes?.title}
                     </h3>
                     <div className="flex justify-between items-center mb-2">
-                        <p className="italic light:text-black dark:text-gray-200">{date}</p>
-                        <p className="light:text-black dark:text-gray-200">{category}</p>
+                        <p className="italic light:text-black dark:text-gray-200">
+                            {dayjs(attributes?.publicationDate).format('MMMM D, YYYY')}
+                        </p>
+                        {attributes?.categories?.data && (
+                            <Categories data={attributes?.categories?.data} />
+                        )}
                     </div>
                     <div>
-                        <p className="text-lg light:text-black dark:text-gray-200">{excerpt}</p>
+                        <p className="text-lg light:text-black dark:text-gray-200">
+                            {attributes?.excerpt}
+                        </p>
                     </div>
                 </a>
             </Link>
