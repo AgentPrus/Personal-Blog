@@ -1006,6 +1006,7 @@ export const Document = gql`
  *   },
  * });
  */
+/* TODO: Fix Type error: Cannot find name 'QueryVariables'
 export function useQuery(baseOptions?: Apollo.QueryHookOptions<Query, QueryVariables>) {
     const options = { ...defaultOptions, ...baseOptions };
     return Apollo.useQuery<Query, QueryVariables>(Document, options);
@@ -1017,3 +1018,4 @@ export function useLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Query, Qu
 export type QueryHookResult = ReturnType<typeof useQuery>;
 export type LazyQueryHookResult = ReturnType<typeof useLazyQuery>;
 export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
+*/
