@@ -1,45 +1,92 @@
-import { NextPage } from 'next';
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import { GetStaticPaths, NextPage } from 'next';
 
 import Layout from '@/components/Layout';
-import { PostPageProps } from '@/models/post.props';
-import PostContent from '@/components/PostContent';
 
-const PostPage: NextPage<PostPageProps> = ({ frontmatter, content, slug }) => {
-    return (
-        <Layout title={frontmatter.title}>
-            <PostContent frontmatter={frontmatter} content={content} />
+import PostContent from '@/components/PostContent';
+import { gql } from '@apollo/client';
+import { ArticleEntity, ArticleEntityResponseCollection } from 'generated/graphql-types';
+import client from '@/lib/apollo-client';
+import { useRouter } from 'next/router';
+
+const GetPostsQuery = gql`
+    query {
+        articles {
+            data {
+                attributes {
+                    title
+                }
+            }
+        }
+    }
+`;
+
+const GetPostBySlug = gql`
+    query Article($slug: String!) {
+        articles(filters: { slug: { eq: $slug } }) {
+            data {
+                attributes {
+                    title
+                    publicationDate
+                    categories {
+                        data {
+                            attributes {
+                                name
+                            }
+                        }
+                    }
+                    content
+                    cover {
+                        data {
+                            attributes {
+                                formats
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
+
+const PostPage: NextPage<ArticleEntityResponseCollection> = ({ data }) => {
+    const router = useRouter();
+
+    // TODO: add custom loader
+    return router.isFallback ? (
+        <div>Loading...</div>
+    ) : (
+        <Layout title={data?.[0]?.attributes?.title}>
+            <PostContent attributes={data?.[0]?.attributes} />
         </Layout>
     );
 };
 
-export async function getStaticPaths() {
-    const files = fs.readdirSync(path.join('posts'));
-    const paths = files.map((fileName) => ({
+export const getStaticPaths: GetStaticPaths = async () => {
+    const { data } = await client.query({
+        query: GetPostsQuery,
+    });
+
+    const paths = data.articles.data.map(({ attributes }: ArticleEntity) => ({
         params: {
-            slug: fileName.replace('.md', ''),
+            slug: attributes?.title,
         },
     }));
 
     return {
         paths,
-        fallback: false,
+        fallback: true,
     };
-}
+};
 
-export async function getStaticProps({ params: { slug } }: { params: { slug: string } }) {
-    const markdownWithMeta = fs.readFileSync(path.join('posts', slug + '.md'), 'utf8');
-    const { data: frontmatter, content } = matter(markdownWithMeta);
+export const getStaticProps = async ({ params: { slug } }: { params: { slug: string } }) => {
+    const post = await client.query({
+        query: GetPostBySlug,
+        variables: { slug },
+    });
 
     return {
-        props: {
-            frontmatter,
-            content,
-            slug,
-        },
+        props: post.data.articles,
     };
-}
+};
 
 export default PostPage;
