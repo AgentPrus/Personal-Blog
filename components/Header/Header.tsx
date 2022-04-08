@@ -61,6 +61,9 @@ const Header = () => {
                         <Link href="/blog">
                             <a className={linkClasses}>Blog</a>
                         </Link>
+                        <Link href="/books">
+                            <a className={linkClasses}>Books</a>
+                        </Link>
                         <Link href="/about">
                             <a className={linkClasses}>About</a>
                         </Link>
