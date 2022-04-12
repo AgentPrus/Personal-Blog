@@ -5,7 +5,7 @@ export const useMarked = () => {
     const renderer = new marked.Renderer();
 
     renderer.paragraph = (text: string) => {
-        return `<p class="dark:text-gray-200">${text}</p>`;
+        return `<p class="dark:text-gray-200 text-lg md:text-xl">${text}</p>`;
     };
 
     renderer.link = (href: string, title: string, text: string) => {
