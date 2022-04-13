@@ -12,7 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children, keywords, title, description 
                 <meta name="description" content={description} />
             </Head>
             <Header />
-            <main className="flex flex-col justify-center px-8 md:max-w-2xl mx-auto">
+            <main className="flex flex-col justify-center px-8 md:max-w-3xl mx-auto">
                 {children}
             </main>
             <Footer />

@@ -24,6 +24,9 @@ const MobileNavLinks: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
             <Link href="/blog">
                 <a className={mobileNavLinkClasses + isActiveLink('/blog')}>Blog</a>
             </Link>
+            <Link href="/books">
+                <a className={mobileNavLinkClasses + +isActiveLink('/books')}>About</a>
+            </Link>
             <Link href="/about">
                 <a className={mobileNavLinkClasses + isActiveLink('/about')}>About</a>
             </Link>

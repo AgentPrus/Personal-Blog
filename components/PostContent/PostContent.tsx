@@ -22,7 +22,7 @@ const PostContent: React.FC<ArticleEntity> = ({ attributes }) => {
                     )}
                 </div>
                 {attributes?.cover?.data?.attributes && (
-                    <CustomImage attributes={attributes?.cover?.data?.attributes} />
+                    <CustomImage imageProps={attributes?.cover?.data} />
                 )}
             </div>
             <div className="blog-text mt-2">

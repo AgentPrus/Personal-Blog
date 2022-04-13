@@ -1,0 +1,34 @@
+import dayjs from 'dayjs';
+
+import { BookReviewEntity } from 'generated/graphql-types';
+import CustomImage from '@/components/CustomImage';
+import { useMarked } from 'hooks/useMarked';
+
+const BookReviewContent: React.FC<BookReviewEntity> = ({ attributes }) => {
+    const { marked } = useMarked();
+
+    return (
+        <>
+            <h1 className="font-bold text-3xl mt-2 dark:text-gray-200">{attributes?.title}</h1>
+            <div className="flex justify-between items-center my-2">
+                <p className="text-gray-500">
+                    {dayjs(attributes?.publishedAt).format('MMMM D, YYYY')}
+                </p>
+            </div>
+            {attributes?.cover?.data?.attributes && (
+                <CustomImage imageProps={attributes?.cover?.data} />
+            )}
+            <div className="blog-text mt-2">
+                {attributes?.description && (
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: marked(attributes?.description),
+                        }}
+                    ></div>
+                )}
+            </div>
+        </>
+    );
+};
+
+export default BookReviewContent;

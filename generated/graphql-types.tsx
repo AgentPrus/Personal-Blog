@@ -17,6 +17,8 @@ export type Scalars = {
     Date: any;
     /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
     DateTime: any;
+    /** A string used to identify an i18n locale */
+    I18NLocaleCode: any;
     /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
     JSON: any;
     /** The `Upload` scalar type represents a file upload. */
@@ -30,6 +32,8 @@ export type Article = {
     cover?: Maybe<UploadFileEntityResponse>;
     createdAt?: Maybe<Scalars['DateTime']>;
     excerpt: Scalars['String'];
+    locale?: Maybe<Scalars['String']>;
+    localizations?: Maybe<ArticleRelationResponseCollection>;
     publicationDate: Scalars['Date'];
     publishedAt?: Maybe<Scalars['DateTime']>;
     slug?: Maybe<Scalars['String']>;
@@ -39,6 +43,13 @@ export type Article = {
 
 export type ArticleCategoriesArgs = {
     filters?: InputMaybe<CategoryFiltersInput>;
+    pagination?: InputMaybe<PaginationArg>;
+    publicationState?: InputMaybe<PublicationState>;
+    sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ArticleLocalizationsArgs = {
+    filters?: InputMaybe<ArticleFiltersInput>;
     pagination?: InputMaybe<PaginationArg>;
     publicationState?: InputMaybe<PublicationState>;
     sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -68,6 +79,8 @@ export type ArticleFiltersInput = {
     createdAt?: InputMaybe<DateTimeFilterInput>;
     excerpt?: InputMaybe<StringFilterInput>;
     id?: InputMaybe<IdFilterInput>;
+    locale?: InputMaybe<StringFilterInput>;
+    localizations?: InputMaybe<ArticleFiltersInput>;
     not?: InputMaybe<ArticleFiltersInput>;
     or?: InputMaybe<Array<InputMaybe<ArticleFiltersInput>>>;
     publicationDate?: InputMaybe<DateFilterInput>;
@@ -91,6 +104,71 @@ export type ArticleInput = {
 export type ArticleRelationResponseCollection = {
     __typename?: 'ArticleRelationResponseCollection';
     data: Array<ArticleEntity>;
+};
+
+export type BookReview = {
+    __typename?: 'BookReview';
+    cover?: Maybe<UploadFileEntityResponse>;
+    createdAt?: Maybe<Scalars['DateTime']>;
+    description?: Maybe<Scalars['String']>;
+    locale?: Maybe<Scalars['String']>;
+    localizations?: Maybe<BookReviewRelationResponseCollection>;
+    publishedAt?: Maybe<Scalars['DateTime']>;
+    slug?: Maybe<Scalars['String']>;
+    title: Scalars['String'];
+    updatedAt?: Maybe<Scalars['DateTime']>;
+};
+
+export type BookReviewLocalizationsArgs = {
+    filters?: InputMaybe<BookReviewFiltersInput>;
+    pagination?: InputMaybe<PaginationArg>;
+    publicationState?: InputMaybe<PublicationState>;
+    sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type BookReviewEntity = {
+    __typename?: 'BookReviewEntity';
+    attributes?: Maybe<BookReview>;
+    id?: Maybe<Scalars['ID']>;
+};
+
+export type BookReviewEntityResponse = {
+    __typename?: 'BookReviewEntityResponse';
+    data?: Maybe<BookReviewEntity>;
+};
+
+export type BookReviewEntityResponseCollection = {
+    __typename?: 'BookReviewEntityResponseCollection';
+    data: Array<BookReviewEntity>;
+    meta: ResponseCollectionMeta;
+};
+
+export type BookReviewFiltersInput = {
+    and?: InputMaybe<Array<InputMaybe<BookReviewFiltersInput>>>;
+    createdAt?: InputMaybe<DateTimeFilterInput>;
+    description?: InputMaybe<StringFilterInput>;
+    id?: InputMaybe<IdFilterInput>;
+    locale?: InputMaybe<StringFilterInput>;
+    localizations?: InputMaybe<BookReviewFiltersInput>;
+    not?: InputMaybe<BookReviewFiltersInput>;
+    or?: InputMaybe<Array<InputMaybe<BookReviewFiltersInput>>>;
+    publishedAt?: InputMaybe<DateTimeFilterInput>;
+    slug?: InputMaybe<StringFilterInput>;
+    title?: InputMaybe<StringFilterInput>;
+    updatedAt?: InputMaybe<DateTimeFilterInput>;
+};
+
+export type BookReviewInput = {
+    cover?: InputMaybe<Scalars['ID']>;
+    description?: InputMaybe<Scalars['String']>;
+    publishedAt?: InputMaybe<Scalars['DateTime']>;
+    slug?: InputMaybe<Scalars['String']>;
+    title?: InputMaybe<Scalars['String']>;
+};
+
+export type BookReviewRelationResponseCollection = {
+    __typename?: 'BookReviewRelationResponseCollection';
+    data: Array<BookReviewEntity>;
 };
 
 export type BooleanFilterInput = {
@@ -249,6 +327,7 @@ export type FloatFilterInput = {
 
 export type GenericMorph =
     | Article
+    | BookReview
     | Category
     | I18NLocale
     | UploadFile
@@ -364,6 +443,9 @@ export type JsonFilterInput = {
 export type Mutation = {
     __typename?: 'Mutation';
     createArticle?: Maybe<ArticleEntityResponse>;
+    createArticleLocalization?: Maybe<ArticleEntityResponse>;
+    createBookReview?: Maybe<BookReviewEntityResponse>;
+    createBookReviewLocalization?: Maybe<BookReviewEntityResponse>;
     createCategory?: Maybe<CategoryEntityResponse>;
     createUploadFile?: Maybe<UploadFileEntityResponse>;
     /** Create a new role */
@@ -371,6 +453,7 @@ export type Mutation = {
     /** Create a new user */
     createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
     deleteArticle?: Maybe<ArticleEntityResponse>;
+    deleteBookReview?: Maybe<BookReviewEntityResponse>;
     deleteCategory?: Maybe<CategoryEntityResponse>;
     deleteUploadFile?: Maybe<UploadFileEntityResponse>;
     /** Delete an existing role */
@@ -389,6 +472,7 @@ export type Mutation = {
     /** Reset user password. Confirm with a code (resetToken from forgotPassword) */
     resetPassword?: Maybe<UsersPermissionsLoginPayload>;
     updateArticle?: Maybe<ArticleEntityResponse>;
+    updateBookReview?: Maybe<BookReviewEntityResponse>;
     updateCategory?: Maybe<CategoryEntityResponse>;
     updateFileInfo: UploadFileEntityResponse;
     updateUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -401,6 +485,24 @@ export type Mutation = {
 
 export type MutationCreateArticleArgs = {
     data: ArticleInput;
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type MutationCreateArticleLocalizationArgs = {
+    data?: InputMaybe<ArticleInput>;
+    id?: InputMaybe<Scalars['ID']>;
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type MutationCreateBookReviewArgs = {
+    data: BookReviewInput;
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type MutationCreateBookReviewLocalizationArgs = {
+    data?: InputMaybe<BookReviewInput>;
+    id?: InputMaybe<Scalars['ID']>;
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 export type MutationCreateCategoryArgs = {
@@ -421,6 +523,12 @@ export type MutationCreateUsersPermissionsUserArgs = {
 
 export type MutationDeleteArticleArgs = {
     id: Scalars['ID'];
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type MutationDeleteBookReviewArgs = {
+    id: Scalars['ID'];
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 export type MutationDeleteCategoryArgs = {
@@ -475,6 +583,13 @@ export type MutationResetPasswordArgs = {
 export type MutationUpdateArticleArgs = {
     data: ArticleInput;
     id: Scalars['ID'];
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type MutationUpdateBookReviewArgs = {
+    data: BookReviewInput;
+    id: Scalars['ID'];
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 export type MutationUpdateCategoryArgs = {
@@ -534,6 +649,8 @@ export type Query = {
     __typename?: 'Query';
     article?: Maybe<ArticleEntityResponse>;
     articles?: Maybe<ArticleEntityResponseCollection>;
+    bookReview?: Maybe<BookReviewEntityResponse>;
+    bookReviews?: Maybe<BookReviewEntityResponseCollection>;
     categories?: Maybe<CategoryEntityResponseCollection>;
     category?: Maybe<CategoryEntityResponse>;
     i18NLocale?: Maybe<I18NLocaleEntityResponse>;
@@ -549,10 +666,25 @@ export type Query = {
 
 export type QueryArticleArgs = {
     id?: InputMaybe<Scalars['ID']>;
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
 export type QueryArticlesArgs = {
     filters?: InputMaybe<ArticleFiltersInput>;
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+    pagination?: InputMaybe<PaginationArg>;
+    publicationState?: InputMaybe<PublicationState>;
+    sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type QueryBookReviewArgs = {
+    id?: InputMaybe<Scalars['ID']>;
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
+};
+
+export type QueryBookReviewsArgs = {
+    filters?: InputMaybe<BookReviewFiltersInput>;
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
     pagination?: InputMaybe<PaginationArg>;
     publicationState?: InputMaybe<PublicationState>;
     sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -935,11 +1067,24 @@ export type Unnamed_1_Query = {
         __typename?: 'ArticleEntityResponseCollection';
         data: Array<{
             __typename?: 'ArticleEntity';
+            attributes?: { __typename?: 'Article'; title: string } | null;
+        }>;
+    } | null;
+};
+
+export type ArticleQueryVariables = Exact<{
+    slug: Scalars['String'];
+}>;
+
+export type ArticleQuery = {
+    __typename?: 'Query';
+    articles?: {
+        __typename?: 'ArticleEntityResponseCollection';
+        data: Array<{
+            __typename?: 'ArticleEntity';
             attributes?: {
                 __typename?: 'Article';
                 title: string;
-                slug?: string | null;
-                excerpt: string;
                 publicationDate: any;
                 content?: string | null;
                 categories?: {
@@ -961,14 +1106,111 @@ export type Unnamed_1_Query = {
     } | null;
 };
 
+export type Unnamed_2_QueryVariables = Exact<{ [key: string]: never }>;
+
+export type Unnamed_2_Query = {
+    __typename?: 'Query';
+    articles?: {
+        __typename?: 'ArticleEntityResponseCollection';
+        data: Array<{
+            __typename?: 'ArticleEntity';
+            attributes?: {
+                __typename?: 'Article';
+                title: string;
+                excerpt: string;
+                slug?: string | null;
+                publicationDate: any;
+                categories?: {
+                    __typename?: 'CategoryRelationResponseCollection';
+                    data: Array<{
+                        __typename?: 'CategoryEntity';
+                        attributes?: { __typename?: 'Category'; name: string } | null;
+                    }>;
+                } | null;
+                cover?: {
+                    __typename?: 'UploadFileEntityResponse';
+                    data?: {
+                        __typename?: 'UploadFileEntity';
+                        attributes?: { __typename?: 'UploadFile'; formats?: any | null } | null;
+                    } | null;
+                } | null;
+            } | null;
+        }>;
+    } | null;
+};
+
+export type BookReviewsQueryVariables = Exact<{
+    locale: Scalars['I18NLocaleCode'];
+}>;
+
+export type BookReviewsQuery = {
+    __typename?: 'Query';
+    bookReviews?: {
+        __typename?: 'BookReviewEntityResponseCollection';
+        data: Array<{
+            __typename?: 'BookReviewEntity';
+            attributes?: {
+                __typename?: 'BookReview';
+                slug?: string | null;
+                title: string;
+                description?: string | null;
+                createdAt?: any | null;
+                cover?: {
+                    __typename?: 'UploadFileEntityResponse';
+                    data?: {
+                        __typename?: 'UploadFileEntity';
+                        attributes?: { __typename?: 'UploadFile'; formats?: any | null } | null;
+                    } | null;
+                } | null;
+            } | null;
+        }>;
+    } | null;
+};
+
 export const Document = gql`
     {
         articles {
             data {
                 attributes {
                     title
-                    slug
-                    excerpt
+                }
+            }
+        }
+    }
+`;
+
+/**
+ * __useQuery__
+ *
+ * To run a query within a React component, call `useQuery` and pass it any options that fit your needs.
+ * When your component renders, `useQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+// export function useQuery(baseOptions?: Apollo.QueryHookOptions<Query, QueryVariables>) {
+//     const options = { ...defaultOptions, ...baseOptions };
+//     return Apollo.useQuery<Query, QueryVariables>(Document, options);
+// }
+// export function useLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Query, QueryVariables>) {
+//     const options = { ...defaultOptions, ...baseOptions };
+//     return Apollo.useLazyQuery<Query, QueryVariables>(Document, options);
+// }
+// export type QueryHookResult = ReturnType<typeof useQuery>;
+// export type LazyQueryHookResult = ReturnType<typeof useLazyQuery>;
+// export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
+export const ArticleDocument = gql`
+    query Article($slug: String!) {
+        articles(filters: { slug: { eq: $slug } }) {
+            data {
+                attributes {
+                    title
                     publicationDate
                     categories {
                         data {
@@ -992,6 +1234,66 @@ export const Document = gql`
 `;
 
 /**
+ * __useArticleQuery__
+ *
+ * To run a query within a React component, call `useArticleQuery` and pass it any options that fit your needs.
+ * When your component renders, `useArticleQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useArticleQuery({
+ *   variables: {
+ *      slug: // value for 'slug'
+ *   },
+ * });
+ */
+export function useArticleQuery(
+    baseOptions: Apollo.QueryHookOptions<ArticleQuery, ArticleQueryVariables>
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return Apollo.useQuery<ArticleQuery, ArticleQueryVariables>(ArticleDocument, options);
+}
+export function useArticleLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<ArticleQuery, ArticleQueryVariables>
+) {
+    const options = { ...defaultOptions, ...baseOptions };
+    return Apollo.useLazyQuery<ArticleQuery, ArticleQueryVariables>(ArticleDocument, options);
+}
+export type ArticleQueryHookResult = ReturnType<typeof useArticleQuery>;
+export type ArticleLazyQueryHookResult = ReturnType<typeof useArticleLazyQuery>;
+export type ArticleQueryResult = Apollo.QueryResult<ArticleQuery, ArticleQueryVariables>;
+// export const Document = gql`
+//     {
+//   articles {
+//     data {
+//       attributes {
+//         title
+//         excerpt
+//         slug
+//         publicationDate
+//         categories {
+//           data {
+//             attributes {
+//               name
+//             }
+//           }
+//         }
+//         cover {
+//           data {
+//             attributes {
+//               formats
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+//     `;
+
+/**
  * __useQuery__
  *
  * To run a query within a React component, call `useQuery` and pass it any options that fit your needs.
@@ -1006,16 +1308,76 @@ export const Document = gql`
  *   },
  * });
  */
-/* TODO: Fix Type error: Cannot find name 'QueryVariables'
-export function useQuery(baseOptions?: Apollo.QueryHookOptions<Query, QueryVariables>) {
+// export function useQuery(baseOptions?: Apollo.QueryHookOptions<Query, QueryVariables>) {
+//     const options = { ...defaultOptions, ...baseOptions };
+//     return Apollo.useQuery<Query, QueryVariables>(Document, options);
+// }
+// export function useLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Query, QueryVariables>) {
+//     const options = { ...defaultOptions, ...baseOptions };
+//     return Apollo.useLazyQuery<Query, QueryVariables>(Document, options);
+// }
+// export type QueryHookResult = ReturnType<typeof useQuery>;
+// export type LazyQueryHookResult = ReturnType<typeof useLazyQuery>;
+// export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
+export const BookReviewsDocument = gql`
+    query BookReviews($locale: I18NLocaleCode!) {
+        bookReviews(locale: $locale) {
+            data {
+                attributes {
+                    slug
+                    title
+                    description
+                    cover {
+                        data {
+                            attributes {
+                                formats
+                            }
+                        }
+                    }
+                    createdAt
+                }
+            }
+        }
+    }
+`;
+
+/**
+ * __useBookReviewsQuery__
+ *
+ * To run a query within a React component, call `useBookReviewsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBookReviewsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useBookReviewsQuery({
+ *   variables: {
+ *      locale: // value for 'locale'
+ *   },
+ * });
+ */
+export function useBookReviewsQuery(
+    baseOptions: Apollo.QueryHookOptions<BookReviewsQuery, BookReviewsQueryVariables>
+) {
     const options = { ...defaultOptions, ...baseOptions };
-    return Apollo.useQuery<Query, QueryVariables>(Document, options);
+    return Apollo.useQuery<BookReviewsQuery, BookReviewsQueryVariables>(
+        BookReviewsDocument,
+        options
+    );
 }
-export function useLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Query, QueryVariables>) {
+export function useBookReviewsLazyQuery(
+    baseOptions?: Apollo.LazyQueryHookOptions<BookReviewsQuery, BookReviewsQueryVariables>
+) {
     const options = { ...defaultOptions, ...baseOptions };
-    return Apollo.useLazyQuery<Query, QueryVariables>(Document, options);
+    return Apollo.useLazyQuery<BookReviewsQuery, BookReviewsQueryVariables>(
+        BookReviewsDocument,
+        options
+    );
 }
-export type QueryHookResult = ReturnType<typeof useQuery>;
-export type LazyQueryHookResult = ReturnType<typeof useLazyQuery>;
-export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
-*/
+export type BookReviewsQueryHookResult = ReturnType<typeof useBookReviewsQuery>;
+export type BookReviewsLazyQueryHookResult = ReturnType<typeof useBookReviewsLazyQuery>;
+export type BookReviewsQueryResult = Apollo.QueryResult<
+    BookReviewsQuery,
+    BookReviewsQueryVariables
+>;

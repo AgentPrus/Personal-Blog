@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: 'Roboto', sans-serif;
-    src: url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+* {
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .dark {
@@ -35,4 +34,8 @@ ol {
 h3,
 h4 {
     font-size: 27px;
+}
+
+.blog-text p {
+    padding-bottom: 24px;
 }
