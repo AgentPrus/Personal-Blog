@@ -40,7 +40,7 @@ const GetPostsQuery = gql`
 const BlogPage: NextPage<{ data: PostsProps }> = ({ data }) => {
     return (
         <Layout>
-            <h2 className="text-4xl font-bold mb-4 dark:text-gray-200">All posts</h2>
+            <h2 className="text-2xl md:text-4xl font-bold mb-4 dark:text-gray-200">All posts</h2>
             {data.articles.data.map((article) => {
                 const { attributes } = article;
 

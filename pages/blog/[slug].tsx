@@ -1,4 +1,4 @@
-import { GetStaticPaths, NextPage } from 'next';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 
 import Layout from '@/components/Layout';
 
@@ -78,10 +78,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps = async ({ params: { slug } }: { params: { slug: string } }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
     const post = await client.query({
         query: GetPostBySlug,
-        variables: { slug },
+        variables: { slug: params?.slug },
     });
 
     return {
