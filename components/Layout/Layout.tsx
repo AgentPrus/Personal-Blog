@@ -5,7 +5,7 @@ import { LayoutProps } from './layout.props';
 
 const Layout: React.FC<LayoutProps> = ({ children, keywords, title, description }) => {
     return (
-        <div className="bg-white dark:bg-gray-900">
+        <>
             <Head>
                 <title>{title}</title>
                 <meta name="keywords" content={keywords} />
@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children, keywords, title, description 
                 {children}
             </main>
             <Footer />
-        </div>
+        </>
     );
 };
 

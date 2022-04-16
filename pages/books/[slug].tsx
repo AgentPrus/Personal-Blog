@@ -3,7 +3,7 @@ import Layout from '@/components/Layout';
 import client from '@/lib/apollo-client';
 import { gql } from '@apollo/client';
 import { BookReviewEntity, BookReviewEntityResponseCollection } from 'generated/graphql-types';
-import { GetStaticPaths, NextPage } from 'next';
+import { GetStaticPaths, GetStaticPathsResult, GetStaticProps, NextPage } from 'next';
 import { useRouter } from 'next/router';
 
 const GetBooksReview = gql`
@@ -12,6 +12,7 @@ const GetBooksReview = gql`
             data {
                 attributes {
                     slug
+                    locale
                 }
             }
         }
@@ -19,8 +20,8 @@ const GetBooksReview = gql`
 `;
 
 const GetBookReviewBySlug = gql`
-    query BookReviews($slug: String!) {
-        bookReviews(filters: { slug: { eq: $slug } }) {
+    query BookReviews($slug: String!, $locale: I18NLocaleCode) {
+        bookReviews(filters: { slug: { eq: $slug } }, locale: $locale) {
             data {
                 attributes {
                     slug
@@ -59,11 +60,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
         query: GetBooksReview,
     });
 
-    const paths = data?.['bookReviews']?.data.map(({ attributes }: BookReviewEntity) => ({
-        params: {
-            slug: attributes?.slug,
-        },
-    }));
+    const paths: GetStaticPathsResult['paths'] = [];
+
+    data?.['bookReviews']?.data.map(({ attributes }: BookReviewEntity) => {
+        paths.push({
+            params: {
+                slug: attributes?.slug ?? '',
+            },
+        });
+    });
 
     return {
         paths,
@@ -71,10 +76,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps = async ({ params: { slug } }: { params: { slug: string } }) => {
+export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     const { data } = await client.query({
         query: GetBookReviewBySlug,
-        variables: { slug },
+        variables: { slug: params?.slug, locale },
     });
 
     return {
