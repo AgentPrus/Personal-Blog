@@ -6,7 +6,7 @@ import CustomImage from '@/components/CustomImage';
 const BookCard: React.FC<BookReview> = ({ cover, title, slug }) => {
     return (
         <Link href={`/books/${slug}`}>
-            <a>
+            <a className="group">
                 <div className="w-fit h-fit">
                     <CustomImage
                         imageProps={cover?.data}
@@ -15,7 +15,9 @@ const BookCard: React.FC<BookReview> = ({ cover, title, slug }) => {
                         imgWidth={280}
                     />
                 </div>
-                <h3 className="mt-4 text-sm font-bold text-gray-700">{title}</h3>
+                <h3 className="mt-4 text-sm font-bold text-gray-900 dark:text-gray-200 ">
+                    {title}
+                </h3>
             </a>
         </Link>
     );
