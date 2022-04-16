@@ -1,4 +1,4 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 
 import Layout from '@/components/Layout';
 import { gql } from '@apollo/client';
@@ -6,6 +6,7 @@ import client from '@/lib/apollo-client';
 import { BooksProps } from '@/models/books.props';
 import TileGrid from '@/components/Books/TileGrid';
 import BookCard from '@/components/Books/BookCard';
+import LanguageSelect from '@/components/common/LanguageSelect';
 
 const GetBooksReviewQuery = gql`
     query BookReviews($locale: I18NLocaleCode!) {
@@ -32,7 +33,12 @@ const GetBooksReviewQuery = gql`
 const BooksPage: NextPage<{ data: BooksProps }> = ({ data }) => {
     return (
         <Layout>
-            <h2 className="text-4xl font-bold mb-4 dark:text-gray-200">Books review</h2>
+            <div className="flex justify-between mb-2">
+                <h2 className="text-2xl md:text-4xl font-bold mb-4 dark:text-gray-200">
+                    Books review
+                </h2>
+                <LanguageSelect />
+            </div>
             <TileGrid>
                 {data.bookReviews.data.map(({ attributes }) => {
                     return (
@@ -49,10 +55,10 @@ const BooksPage: NextPage<{ data: BooksProps }> = ({ data }) => {
     );
 };
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
     const { data } = await client.query({
         query: GetBooksReviewQuery,
-        variables: { locale: 'en' }, // TODO: Get user chosen locale
+        variables: { locale: locale },
     });
 
     return {
@@ -60,6 +66,6 @@ export async function getStaticProps() {
             data,
         },
     };
-}
+};
 
 export default BooksPage;
