@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 
 import Layout from '@/components/Layout';
 import { gql } from '@apollo/client';
@@ -55,7 +55,7 @@ const BooksPage: NextPage<{ data: BooksProps }> = ({ data }) => {
     );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
     const { data } = await client.query({
         query: GetBooksReviewQuery,
         variables: { locale: locale },
