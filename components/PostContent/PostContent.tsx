@@ -27,11 +27,12 @@ const PostContent: React.FC<ArticleEntity> = ({ attributes }) => {
             </div>
             <div className="blog-text mt-2">
                 {attributes?.content && (
-                    <div
+                    <article
+                        className="prose lg:prose-xl dark:prose-invert"
                         dangerouslySetInnerHTML={{
                             __html: marked(attributes?.content),
                         }}
-                    ></div>
+                    ></article>
                 )}
             </div>
         </>

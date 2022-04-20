@@ -4,8 +4,10 @@ import { marked } from 'marked';
 export const useMarked = () => {
     const renderer = new marked.Renderer();
 
-    renderer.paragraph = (text: string) => {
-        return `<p class="dark:text-gray-200 text-lg md:text-xl">${text}</p>`;
+    renderer.list = (body: string, ordered: boolean) => {
+        return ordered
+            ? `<ol class="list-decimal role="list">${body}</ol>`
+            : `<ul class="list-disc" role="list">${body}</ul>`;
     };
 
     renderer.link = (href: string, title: string, text: string) => {

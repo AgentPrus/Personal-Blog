@@ -20,11 +20,12 @@ const BookReviewContent: React.FC<BookReviewEntity> = ({ attributes }) => {
             )}
             <div className="blog-text mt-2">
                 {attributes?.description && (
-                    <div
+                    <article
+                        className="prose lg:prose-xl dark:prose-invert"
                         dangerouslySetInnerHTML={{
                             __html: marked(attributes?.description),
                         }}
-                    ></div>
+                    ></article>
                 )}
             </div>
         </>
