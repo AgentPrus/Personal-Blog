@@ -4,7 +4,6 @@ import client from '@/lib/apollo-client';
 import { gql } from '@apollo/client';
 import { BookReviewEntity, BookReviewEntityResponseCollection } from 'generated/graphql-types';
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps, NextPage } from 'next';
-import { useRouter } from 'next/router';
 
 const GetBooksReview = gql`
     query {
@@ -44,11 +43,7 @@ const GetBookReviewBySlug = gql`
 const BookReviewPage: NextPage<BookReviewEntityResponseCollection> = ({
     data,
 }: BookReviewEntityResponseCollection) => {
-    const router = useRouter();
-
-    return router.isFallback ? (
-        <div>Loading...</div>
-    ) : (
+    return (
         <Layout title={data?.[0]?.attributes?.title}>
             <BookReviewContent attributes={data?.[0]?.attributes} />
         </Layout>
