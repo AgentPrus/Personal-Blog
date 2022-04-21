@@ -6,7 +6,6 @@ import PostContent from '@/components/PostContent';
 import { gql } from '@apollo/client';
 import { ArticleEntity, ArticleEntityResponseCollection } from 'generated/graphql-types';
 import client from '@/lib/apollo-client';
-import { useRouter } from 'next/router';
 
 const GetPostsQuery = gql`
     query {
@@ -49,12 +48,7 @@ const GetPostBySlug = gql`
 `;
 
 const PostPage: NextPage<ArticleEntityResponseCollection> = ({ data }) => {
-    const router = useRouter();
-
-    // TODO: add custom loader
-    return router.isFallback ? (
-        <div>Loading...</div>
-    ) : (
+    return (
         <Layout title={data?.[0]?.attributes?.title}>
             <PostContent attributes={data?.[0]?.attributes} />
         </Layout>

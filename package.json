@@ -28,6 +28,7 @@
         "marked": "^4.0.5",
         "next": "12.0.4",
         "next-themes": "^0.1.1",
+        "nextjs-progressbar": "^0.0.14",
         "react": "17.0.2",
         "react-dom": "17.0.2",
         "react-icons": "^4.3.1",
