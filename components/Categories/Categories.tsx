@@ -7,7 +7,7 @@ const Categories: React.FC<CategoryRelationResponseCollection> = ({ data }) => {
                 const { attributes } = category;
 
                 return (
-                    <p className="light:text-black dark:text-gray-200" key={attributes?.name}>
+                    <p className="text-slate-900 dark:text-slate-200" key={attributes?.name}>
                         {attributes?.name}
                     </p>
                 );

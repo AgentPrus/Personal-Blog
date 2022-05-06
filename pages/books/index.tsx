@@ -34,7 +34,7 @@ const BooksPage: NextPage<{ data: BooksProps }> = ({ data }) => {
     return (
         <Layout>
             <div className="flex justify-between mb-2">
-                <h2 className="text-2xl md:text-4xl font-bold mb-4 dark:text-gray-200">
+                <h2 className="text-2xl md:text-4xl font-bold mb-4 dark:text-slate-200">
                     Books review
                 </h2>
                 <LanguageSelect />

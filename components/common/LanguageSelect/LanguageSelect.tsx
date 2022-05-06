@@ -24,13 +24,16 @@ const LanguageSelect = () => {
         <div className="w-28">
             <Listbox value={selectedLanguage} onChange={handleChange}>
                 <div className="relative z-10">
-                    <Listbox.Button className="relative w-fit md:w-full py-2 pl-3 pr-10 text-center bg-white rounded-lg shadow-sm cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-blue-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
+                    <Listbox.Button className="relative w-fit md:w-full py-2 pl-3 pr-10 text-center bg-white dark:bg-slate-200 rounded-lg shadow cursor-default focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-blue-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
                         <span className="hidden md:block text-gray-900">
                             {selectedLanguage?.language}
                         </span>
                         <span className="block md:hidden">{selectedLanguage?.flag}</span>
                         <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-                            <SelectorIcon className="w-3 h-3 text-gray-400" aria-hidden="true" />
+                            <SelectorIcon
+                                className="w-3 h-3 text-slate-200 dark:text-slate-900"
+                                aria-hidden="true"
+                            />
                         </span>
                     </Listbox.Button>
                     <Transition
@@ -39,13 +42,15 @@ const LanguageSelect = () => {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <Listbox.Options className="absolute w-fit py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm text-center">
+                        <Listbox.Options className="absolute w-fit py-1 mt-1 overflow-auto text-base bg-white dark:bg-slate-200 rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm text-center">
                             {languages.map(({ language, id, code, flag }) => (
                                 <Listbox.Option
                                     key={id}
                                     className={({ active }) =>
                                         `text-center md:text-left cursor-default select-none relative py-2 px-6 ${
-                                            active ? 'text-black bg-blue-100' : 'text-gray-900'
+                                            active
+                                                ? 'text-slate-900 bg-slate-200'
+                                                : 'text-slate-900'
                                         }`
                                     }
                                     value={{ code, language, flag }}

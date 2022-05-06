@@ -81,6 +81,7 @@ export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
         props: {
             data: data?.bookReviews.data,
         },
+        revalidate: 60,
     };
 };
 

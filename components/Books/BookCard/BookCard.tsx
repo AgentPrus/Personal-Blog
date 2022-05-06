@@ -15,7 +15,7 @@ const BookCard: React.FC<BookReview> = ({ cover, title, slug }) => {
                         imgWidth={280}
                     />
                 </div>
-                <h3 className="mt-4 text-sm font-bold text-gray-900 dark:text-gray-200 ">
+                <h3 className="mt-4 text-sm font-bold text-slate-900 dark:text-slate-200 ">
                     {title}
                 </h3>
             </a>

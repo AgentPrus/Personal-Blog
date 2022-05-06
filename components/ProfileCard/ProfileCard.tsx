@@ -1,7 +1,5 @@
 import Image from 'next/image';
 
-const liClasses = 'text-gray-400 dark:text-gray-200';
-
 const ProfileCard = () => {
     return (
         <div className="w-full rounded-lg p-12 flex flex-col justify-center items-center">
@@ -15,14 +13,16 @@ const ProfileCard = () => {
                 />
             </div>
             <div className="text-center">
-                <p className="text-xl text-gray-700 dark:text-gray-200 font-bold mb-2">Mike Prus</p>
-                <p className="text-base text-gray-400 dark:text-gray-200 font-normal">
+                <p className="text-xl text-slate-900 dark:text-slate-200 font-bold mb-2">
+                    Mike Prus
+                </p>
+                <p className="text-base text-slate-900 dark:text-slate-200 font-normal">
                     Christian ✝️
                 </p>
-                <p className="text-base text-gray-400 dark:text-gray-200 font-normal">
+                <p className="text-base text-slate-900 dark:text-slate-200 font-normal">
                     Web Developer at{' '}
                     <a
-                        className="underline dark:text-purple-400"
+                        className="underline text-sky-500 dark:text-sky-400"
                         href="https://www.ekreative.com/"
                         target="_blank"
                         rel="noreferrer"
@@ -31,7 +31,9 @@ const ProfileCard = () => {
                     </a>{' '}
                     🧑‍💻
                 </p>
-                <p className="text-base text-gray-400 dark:text-white font-normal">Adventurer 🤠</p>
+                <p className="text-base text-slate-900 dark:text-slate-200 font-normal">
+                    Adventurer 🤠
+                </p>
             </div>
         </div>
     );

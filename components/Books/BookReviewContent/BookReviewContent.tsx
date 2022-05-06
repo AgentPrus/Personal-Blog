@@ -9,7 +9,7 @@ const BookReviewContent: React.FC<BookReviewEntity> = ({ attributes }) => {
 
     return (
         <>
-            <h1 className="font-bold text-3xl mt-2 dark:text-gray-200">{attributes?.title}</h1>
+            <h1 className="font-bold text-3xl mt-2 dark:text-purple-400">{attributes?.title}</h1>
             <div className="flex justify-between items-center my-2">
                 <p className="text-gray-500">
                     {dayjs(attributes?.publishedAt).format('MMMM D, YYYY')}

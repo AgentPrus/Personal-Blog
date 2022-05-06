@@ -8,11 +8,11 @@ const Post: React.FC<ArticleEntity> = ({ attributes }) => {
         <div className="w-full mb-8">
             <Link href={`/blog/${attributes?.slug}`}>
                 <a>
-                    <h3 className="mb-2 font-bold text-xl light:text-black dark:text-gray-200">
+                    <h3 className="mb-2 font-bold text-xl text-slate-900 dark:text-slate-200">
                         {attributes?.title}
                     </h3>
                     <div className="flex justify-between items-center mb-2">
-                        <p className="italic light:text-black dark:text-gray-200">
+                        <p className="italic text-black-slate-900 dark:text-slate-200">
                             {dayjs(attributes?.publicationDate).format('MMMM D, YYYY')}
                         </p>
                         {attributes?.categories?.data && (
@@ -20,7 +20,7 @@ const Post: React.FC<ArticleEntity> = ({ attributes }) => {
                         )}
                     </div>
                     <div>
-                        <p className="text-lg light:text-black dark:text-gray-200">
+                        <p className="text-lg text-slate-900 dark:text-slate-200">
                             {attributes?.excerpt}
                         </p>
                     </div>

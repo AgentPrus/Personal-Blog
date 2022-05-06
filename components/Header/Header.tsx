@@ -12,6 +12,8 @@ const navClasses =
 const linkClasses =
     'font-medium hidden md:inline-block sm:px-3 sm:py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-all text-xl light:text-black dark:text-gray-200';
 
+const barClasses = ' bg-slate-900 dark:bg-slate-200';
+
 const Header = () => {
     const [mounted, setMounted] = useState(false);
     const [isMobileNavIsOpen, setIsMobileNavIsOpen] = useState(false);
@@ -40,7 +42,7 @@ const Header = () => {
 
     return (
         <>
-            <header className="border-b dark:border-purple-400 mb-8 max-w-4xl mx-auto">
+            <header className="border-b dark:border-slate-200 mb-8 max-w-4xl mx-auto">
                 <nav className={navClasses}>
                     <span className="md:hidden nav-links">
                         <button
@@ -49,9 +51,9 @@ const Header = () => {
                                 setIsMobileNavIsOpen((isMobileNavIsOpen) => !isMobileNavIsOpen)
                             }
                         >
-                            <div className={styles['bar-one'] + ' bg-black dark:bg-purple-400'} />
-                            <div className={styles['bar-two'] + ' bg-black dark:bg-purple-400'} />
-                            <div className={styles['bar-three'] + ' bg-black dark:bg-purple-400'} />
+                            <div className={styles['bar-one'] + barClasses} />
+                            <div className={styles['bar-two'] + barClasses} />
+                            <div className={styles['bar-three'] + barClasses} />
                         </button>
                     </span>
                     <div>
@@ -69,7 +71,7 @@ const Header = () => {
                         </Link>
                     </div>
                     <div
-                        className="p-1 sm:px-3 sm:py-2 rounded-lg transition-all hover:bg-gray-200 dark:text-purple-400 dark:hover:bg-purple-700 cursor-pointer"
+                        className="p-1 sm:px-3 sm:py-2 rounded-lg transition-al text-sky-500 hover:bg-sky-200 cursor-pointer"
                         onClick={() => (theme === 'light' ? setTheme('dark') : setTheme('light'))}
                     >
                         {renderThemeChanger()}
