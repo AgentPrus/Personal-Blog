@@ -12,9 +12,11 @@ const PostContent: React.FC<ArticleEntity> = ({ attributes }) => {
     return (
         <>
             <div>
-                <h1 className="font-bold text-3xl mt-2 dark:text-slate-200">{attributes?.title}</h1>
+                <h1 className="font-bold text-3xl mt-2 text-sky-500 dark:text-sky-400">
+                    {attributes?.title}
+                </h1>
                 <div className="flex justify-between items-center my-2">
-                    <p className="text-sky-500">
+                    <p className="text-slate-900 dark:text-slate-200">
                         {dayjs(attributes?.publicationDate).format('MMMM D, YYYY')}
                     </p>
                     {attributes?.categories?.data && (
