@@ -10,7 +10,7 @@ import client from '@/lib/apollo-client';
 
 const GetPostsQuery = gql`
     query {
-        articles {
+        articles(sort: "publicationDate:desc") {
             data {
                 attributes {
                     title
