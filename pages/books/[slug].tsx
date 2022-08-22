@@ -1,44 +1,10 @@
 import BookReviewContent from '@/components/Books/BookReviewContent';
 import Layout from '@/components/Layout';
 import client from '@/lib/apollo-client';
-import { gql } from '@apollo/client';
+
 import { BookReviewEntity, BookReviewEntityResponseCollection } from 'generated/graphql-types';
 import { GetStaticPaths, GetStaticPathsResult, GetStaticProps, NextPage } from 'next';
-
-const GetBooksReview = gql`
-    query {
-        bookReviews {
-            data {
-                attributes {
-                    slug
-                    locale
-                }
-            }
-        }
-    }
-`;
-
-const GetBookReviewBySlug = gql`
-    query BookReviews($slug: String!, $locale: I18NLocaleCode) {
-        bookReviews(filters: { slug: { eq: $slug } }, locale: $locale) {
-            data {
-                attributes {
-                    slug
-                    title
-                    description
-                    cover {
-                        data {
-                            attributes {
-                                formats
-                            }
-                        }
-                    }
-                    createdAt
-                }
-            }
-        }
-    }
-`;
+import { GetBookReviewBySlug, GetBooksReviewAttributes } from 'services/books';
 
 const BookReviewPage: NextPage<BookReviewEntityResponseCollection> = ({
     data,
@@ -52,7 +18,7 @@ const BookReviewPage: NextPage<BookReviewEntityResponseCollection> = ({
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const { data } = await client.query({
-        query: GetBooksReview,
+        query: GetBooksReviewAttributes,
     });
 
     const paths: GetStaticPathsResult['paths'] = [];

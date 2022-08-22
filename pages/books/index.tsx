@@ -1,34 +1,12 @@
 import type { GetStaticProps, NextPage } from 'next';
 
 import Layout from '@/components/Layout';
-import { gql } from '@apollo/client';
 import client from '@/lib/apollo-client';
 import { BooksProps } from '@/models/books.props';
 import TileGrid from '@/components/Books/TileGrid';
 import BookCard from '@/components/Books/BookCard';
 import LanguageSelect from '@/components/common/LanguageSelect';
-
-const GetBooksReviewQuery = gql`
-    query BookReviews($locale: I18NLocaleCode!) {
-        bookReviews(locale: $locale) {
-            data {
-                attributes {
-                    slug
-                    title
-                    description
-                    cover {
-                        data {
-                            attributes {
-                                formats
-                            }
-                        }
-                    }
-                    createdAt
-                }
-            }
-        }
-    }
-`;
+import { GetBooksReviewQuery } from 'services/books';
 
 const BooksPage: NextPage<{ data: BooksProps }> = ({ data }) => {
     return (

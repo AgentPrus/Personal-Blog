@@ -3,49 +3,10 @@ import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import Layout from '@/components/Layout';
 
 import PostContent from '@/components/PostContent';
-import { gql } from '@apollo/client';
+
 import { ArticleEntity, ArticleEntityResponseCollection } from 'generated/graphql-types';
 import client from '@/lib/apollo-client';
-
-const GetPostsQuery = gql`
-    query {
-        articles {
-            data {
-                attributes {
-                    title
-                }
-            }
-        }
-    }
-`;
-
-const GetPostBySlug = gql`
-    query Article($slug: String!) {
-        articles(filters: { slug: { eq: $slug } }) {
-            data {
-                attributes {
-                    title
-                    publicationDate
-                    categories {
-                        data {
-                            attributes {
-                                name
-                            }
-                        }
-                    }
-                    content
-                    cover {
-                        data {
-                            attributes {
-                                formats
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-`;
+import { GetPostBySlug, GetPostsQueryAttributes } from 'services/blog';
 
 const PostPage: NextPage<ArticleEntityResponseCollection> = ({ data }) => {
     return (
@@ -57,7 +18,7 @@ const PostPage: NextPage<ArticleEntityResponseCollection> = ({ data }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
     const { data } = await client.query({
-        query: GetPostsQuery,
+        query: GetPostsQueryAttributes,
     });
 
     const paths = data.articles.data.map(({ attributes }: ArticleEntity) => ({
