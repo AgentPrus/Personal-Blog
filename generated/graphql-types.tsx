@@ -1396,40 +1396,6 @@ export type BookReviewsQuery = {
     } | null;
 };
 
-export const Document = gql`
-    {
-        aboutMe {
-            data {
-                attributes {
-                    about_me_card {
-                        title
-                        picture {
-                            data {
-                                attributes {
-                                    formats
-                                }
-                            }
-                        }
-                        description
-                    }
-                }
-            }
-        }
-    }
-`;
-export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
-export const Document = gql`
-    {
-        articles {
-            data {
-                attributes {
-                    title
-                }
-            }
-        }
-    }
-`;
-export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
 export const ArticleDocument = gql`
     query Article($slug: String!) {
         articles(filters: { slug: { eq: $slug } }) {
@@ -1460,35 +1426,6 @@ export const ArticleDocument = gql`
 export type ArticleQueryResult = Apollo.QueryResult<ArticleQuery, ArticleQueryVariables>;
 export const Document = gql`
     {
-        articles(sort: "publicationDate:desc") {
-            data {
-                attributes {
-                    title
-                    excerpt
-                    slug
-                    publicationDate
-                    categories {
-                        data {
-                            attributes {
-                                name
-                            }
-                        }
-                    }
-                    cover {
-                        data {
-                            attributes {
-                                formats
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-`;
-export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
-export const Document = gql`
-    {
         bookReviews {
             data {
                 attributes {
@@ -1499,7 +1436,6 @@ export const Document = gql`
         }
     }
 `;
-export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
 export const BookReviewsDocument = gql`
     query BookReviews($slug: String!, $locale: I18NLocaleCode) {
         bookReviews(filters: { slug: { eq: $slug } }, locale: $locale) {
