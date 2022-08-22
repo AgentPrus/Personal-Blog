@@ -1,39 +1,37 @@
+import { Maybe, UploadFileEntityResponse } from 'generated/graphql-types';
+import { marked } from 'marked';
 import Image from 'next/image';
 
-const ProfileCard = () => {
+interface ProfileCardProps {
+    description?: Maybe<string>;
+    title?: Maybe<string>;
+    picture?: Maybe<UploadFileEntityResponse>;
+}
+
+const ProfileCard: React.FC<ProfileCardProps> = ({ description = '', title = '', picture }) => {
     return (
-        <div className="w-full rounded-lg p-12 flex flex-col justify-center items-center">
-            <div className="mb-4">
-                <Image
-                    className="object-center object-cover rounded-full"
-                    src="/images/profile.jpg"
-                    alt="photo"
-                    width={144}
-                    height={144}
-                />
+        <div className="flex justify-between">
+            <div>
+                <h2 className="font-bold text-3xl md:text-5xl tracking-tight dark:text-white mb-2">
+                    {title}
+                </h2>
+                <article
+                    className="prose dark:prose-invert"
+                    dangerouslySetInnerHTML={{
+                        __html: marked(description as string),
+                    }}
+                ></article>
             </div>
-            <div className="text-center">
-                <p className="text-xl text-slate-900 dark:text-slate-200 font-bold mb-2">
-                    Mike Prus
-                </p>
-                <p className="text-base text-slate-900 dark:text-slate-200 font-normal">
-                    Christian ✝️
-                </p>
-                <p className="text-base text-slate-900 dark:text-slate-200 font-normal">
-                    Web Developer at{' '}
-                    <a
-                        className="underline text-sky-500 dark:text-sky-400"
-                        href="https://www.ekreative.com/"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        ekreative
-                    </a>{' '}
-                    🧑‍💻
-                </p>
-                <p className="text-base text-slate-900 dark:text-slate-200 font-normal">
-                    Adventurer 🤠
-                </p>
+            <div>
+                {picture?.data?.attributes && (
+                    <Image
+                        className="object-[center_30%] object-cover rounded-full"
+                        src={picture?.data?.attributes?.formats['small'].url}
+                        alt="profile_picture"
+                        width={140}
+                        height={140}
+                    />
+                )}
             </div>
         </div>
     );
