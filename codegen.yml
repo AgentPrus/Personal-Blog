@@ -1,8 +1,10 @@
 overwrite: true
 schema: http://localhost:1337/graphql
-documents: ./**/*.tsx
+documents: './**/*.{ts,tsx}'
 generates:
     generated/graphql-types.tsx:
+        config:
+            withHooks: false
         plugins:
             - typescript
             - typescript-operations
