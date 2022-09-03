@@ -15,7 +15,8 @@ const Post: React.FC<ArticleEntity> = ({ attributes }) => {
 
     return (
         <article className="relative group cursor-pointer z-10" onClick={handleClick}>
-            <RiCheckboxBlankCircleLine className="hidden absolute right-full mr-6 top-2 text-slate-200 dark:text-slate-600 md:mr-11 overflow-visible sm:block" />
+            <div className="hidden absolute right-full mr-8 top-2 rounded-full border-2 bg-white w-3 h-3 border-slate-200 dark:border-slate-600 md:mr-12 overflow-visible sm:block" />
+
             <div className="absolute -inset-y-2.5 -inset-x-4 md:-inset-y-4 md:-inset-x-6 sm:rounded-2xl group-hover:bg-slate-50/50 dark:group-hover:bg-slate-800/25" />
             <div className="relative w-10/12">
                 <h3 className="mb-2 font-bold text-xl text-slate-900 dark:text-slate-200">
