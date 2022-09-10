@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ArticleEntity } from 'generated/graphql-types';
 import dayjs from 'dayjs';
 import Categories from '../Categories';
-import { RiCheckboxBlankCircleLine } from 'react-icons/ri';
+
 import { MdOutlineNavigateNext } from 'react-icons/md';
 import { useRouter } from 'next/router';
 
