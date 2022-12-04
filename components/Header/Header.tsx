@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
-import { HiMoon, HiSun } from 'react-icons/hi';
 import classNames from 'classnames';
 
 import styles from './header.module.css';
 import MobileNavLinks from '../MobileNavLinks';
+import { useThemeChanger } from './useThemeChanger';
 
 const navClasses =
     'flex items-center justify-between w-full relative border-gray-200 max-w-2xl mx-auto pt-8 pb-4 px-5 dark:border-gray-700 text-gray-900';
@@ -15,42 +14,21 @@ const linkClasses =
 const barClasses = ' bg-slate-900 dark:bg-slate-200';
 
 const Header = () => {
-    const [mounted, setMounted] = useState(false);
     const [isMobileNavIsOpen, setIsMobileNavIsOpen] = useState(false);
+    const [renderThemeChanger, changeTheme] = useThemeChanger();
 
     const active = classNames(styles['mobile-menu'], {
         [styles.open]: isMobileNavIsOpen,
     });
 
-    const { systemTheme, theme, setTheme } = useTheme();
-
-    const renderThemeChanger = () => {
-        if (!mounted) return null;
-
-        const currentTheme = theme === 'system' ? systemTheme : theme;
-
-        if (currentTheme === 'dark') {
-            return <HiSun className="w-7 h-7" />;
-        } else {
-            return <HiMoon className="w-7 h-7" />;
-        }
-    };
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+    const handleClick = () => setIsMobileNavIsOpen((isMobileNavIsOpen) => !isMobileNavIsOpen);
 
     return (
         <>
             <header className="border-b dark:border-slate-200 mb-8 max-w-4xl mx-auto">
                 <nav className={navClasses}>
                     <span className="md:hidden nav-links">
-                        <button
-                            className={active}
-                            onClick={() =>
-                                setIsMobileNavIsOpen((isMobileNavIsOpen) => !isMobileNavIsOpen)
-                            }
-                        >
+                        <button className={active} onClick={handleClick}>
                             <div className={styles['bar-one'] + barClasses} />
                             <div className={styles['bar-two'] + barClasses} />
                             <div className={styles['bar-three'] + barClasses} />
@@ -72,7 +50,7 @@ const Header = () => {
                     </div>
                     <div
                         className="p-1 sm:px-3 sm:py-2 rounded-lg transition-al text-sky-500 hover:bg-sky-200 cursor-pointer"
-                        onClick={() => (theme === 'light' ? setTheme('dark') : setTheme('light'))}
+                        onClick={changeTheme}
                     >
                         {renderThemeChanger()}
                     </div>
