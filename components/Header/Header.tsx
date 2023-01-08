@@ -7,7 +7,7 @@ import MobileNavLinks from '../MobileNavLinks';
 import { useThemeChanger } from './useThemeChanger';
 
 const navClasses =
-    'flex items-center justify-between w-full relative border-gray-200 max-w-2xl mx-auto pt-8 pb-4 px-5 dark:border-gray-700 text-gray-900';
+    'flex items-center max-w-3xl justify-between w-full relative border-gray-200 max-w-2xl mx-auto pt-8 pb-4 px-5 dark:border-gray-700 text-gray-900';
 const linkClasses =
     'font-medium hidden md:inline-block sm:px-3 sm:py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-all text-xl light:text-black dark:text-gray-200';
 
