@@ -13,8 +13,8 @@ export const GetPostsQueryAttributes = gql`
 `;
 
 export const GetPostBySlug = gql`
-    query Article($slug: String!) {
-        articles(filters: { slug: { eq: $slug } }) {
+    query Article($slug: String!, $locale: I18NLocaleCode) {
+        articles(filters: { slug: { eq: $slug } }, locale: $locale) {
             data {
                 attributes {
                     title
@@ -41,8 +41,8 @@ export const GetPostBySlug = gql`
 `;
 
 export const GetPostsQuery = gql`
-    query {
-        articles(sort: "publicationDate:desc") {
+    query Articles($locale: I18NLocaleCode!) {
+        articles(locale: $locale, sort: "publicationDate:desc") {
             data {
                 attributes {
                     title

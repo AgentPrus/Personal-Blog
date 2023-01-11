@@ -33,10 +33,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ locale, params }) => {
     const post = await client.query({
         query: GetPostBySlug,
-        variables: { slug: params?.slug },
+        variables: { slug: params?.slug, locale },
     });
 
     return {
