@@ -9,7 +9,7 @@ const BookCard: React.FC<BookReview> = ({ cover, title, slug }) => {
             <div className="w-fit h-fit">
                 <CustomImage
                     imageProps={cover?.data}
-                    className="w-full h-full object-center object-cover group-hover:opacity-75 rounded-lg"
+                    className="w-[320px] h-[320px] object-center object-cover group-hover:opacity-75 rounded-lg"
                     imgHeight={320}
                     imgWidth={280}
                 />

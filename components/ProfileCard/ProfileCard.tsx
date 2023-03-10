@@ -25,7 +25,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ description = '', title = '',
             <div>
                 {picture?.data?.attributes && (
                     <Image
-                        className="object-[center_30%] object-cover rounded-full"
+                        className="object-[center_30%] object-cover w-[140px] h-[140px] rounded-full"
                         src={picture?.data?.attributes?.formats['small'].url}
                         alt="profile_picture"
                         width={140}
