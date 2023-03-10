@@ -30,17 +30,17 @@ const MobileNavLinks: React.FC<{ isOpen: boolean }> = ({ isOpen }) => {
 
     return (
         <div className={displayMobileNavLinks}>
-            <Link href="/">
-                <a className={mobileNavLinkClasses + isActiveLink('/')}>Home</a>
+            <Link href="/" className={mobileNavLinkClasses + isActiveLink('/')}>
+                Home
             </Link>
-            <Link href="/blog">
-                <a className={mobileNavLinkClasses + isActiveLink('/blog')}>Blog</a>
+            <Link href="/blog" className={mobileNavLinkClasses + isActiveLink('/blog')}>
+                Blog
             </Link>
-            <Link href="/books">
-                <a className={mobileNavLinkClasses + +isActiveLink('/books')}>Books</a>
+            <Link href="/books" className={mobileNavLinkClasses + +isActiveLink('/books')}>
+                Books
             </Link>
-            <Link href="/about">
-                <a className={mobileNavLinkClasses + isActiveLink('/about')}>About</a>
+            <Link href="/about" className={mobileNavLinkClasses + isActiveLink('/about')}>
+                About
             </Link>
         </div>
     );

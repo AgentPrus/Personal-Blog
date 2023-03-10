@@ -35,17 +35,17 @@ const Header = () => {
                         </button>
                     </span>
                     <div>
-                        <Link href="/">
-                            <a className={linkClasses}>Home</a>
+                        <Link href="/" className={linkClasses}>
+                            Home
                         </Link>
-                        <Link href="/blog">
-                            <a className={linkClasses}>Blog</a>
+                        <Link href="/blog" className={linkClasses}>
+                            Blog
                         </Link>
-                        <Link href="/books">
-                            <a className={linkClasses}>Books</a>
+                        <Link href="/books" className={linkClasses}>
+                            Books
                         </Link>
-                        <Link href="/about">
-                            <a className={linkClasses}>About</a>
+                        <Link href="/about" className={linkClasses}>
+                            About
                         </Link>
                     </div>
                     <div

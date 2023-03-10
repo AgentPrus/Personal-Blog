@@ -36,11 +36,13 @@ const Post: React.FC<ArticleEntity> = ({ attributes }) => {
                     </p>
                 </div>
 
-                <Link href={`/blog/${attributes?.slug}`}>
-                    <a className="flex items-center text-sky-500 dark:text-sky-400">
-                        Read more
-                        <MdOutlineNavigateNext className="text-sky-500 dark:text-sky-400" />
-                    </a>
+                <Link
+                    href={`/blog/${attributes?.slug}`}
+                    className="flex items-center text-sky-500 dark:text-sky-400"
+                    passHref
+                >
+                    Read more
+                    <MdOutlineNavigateNext className="text-sky-500 dark:text-sky-400" />
                 </Link>
             </div>
         </article>
