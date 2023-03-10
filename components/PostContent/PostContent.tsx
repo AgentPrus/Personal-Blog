@@ -27,7 +27,10 @@ const PostContent: React.FC<ArticleEntity> = ({ attributes }) => {
                     )}
                 </div>
                 {attributes?.cover?.data?.attributes && (
-                    <CustomImage imageProps={attributes?.cover?.data} />
+                    <CustomImage
+                        imageProps={attributes?.cover?.data}
+                        className="max-w-[640px] max-h-[720px] object-cover object-center"
+                    />
                 )}
             </div>
             <div className="blog-text mt-2">
