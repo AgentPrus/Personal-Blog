@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 
 import { BookReviewEntity } from 'generated/graphql-types';
-import CustomImage from '@/components/CustomImage';
+import CustomImage from '@/components/common/CustomImage';
 import { useMarked } from 'hooks/useMarked';
 
 const BookReviewContent: React.FC<BookReviewEntity> = ({ attributes }) => {

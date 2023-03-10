@@ -1,10 +1,13 @@
-import 'highlight.js/styles/monokai-sublime.css';
+import dayjs from 'dayjs';
+
 import { useMarked } from 'hooks/useMarked';
 import { ArticleEntity } from 'generated/graphql-types';
 
+import CustomImage from '@/components/common/CustomImage';
+
 import Categories from '../Categories';
-import dayjs from 'dayjs';
-import CustomImage from '../CustomImage';
+
+import 'highlight.js/styles/monokai-sublime.css';
 
 const PostContent: React.FC<ArticleEntity> = ({ attributes }) => {
     const { marked } = useMarked();
