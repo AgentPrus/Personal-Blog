@@ -41,9 +41,6 @@ const Header = () => {
                         <Link href="/blog" className={linkClasses}>
                             Blog
                         </Link>
-                        <Link href="/books" className={linkClasses}>
-                            Books
-                        </Link>
                         <Link href="/about" className={linkClasses}>
                             About
                         </Link>
