@@ -16,6 +16,13 @@ export const GetAboutMeDataQuery = gql`
                         }
                         description
                     }
+                    feed {
+                        feed_item {
+                            description
+                            date
+                            id
+                        }
+                    }
                 }
             }
         }
