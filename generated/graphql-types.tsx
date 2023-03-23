@@ -1299,35 +1299,6 @@ export type ArticlesQuery = {
 
 export const Document = gql`
     {
-        aboutMe {
-            data {
-                attributes {
-                    about_me_card {
-                        title
-                        picture {
-                            data {
-                                attributes {
-                                    formats
-                                }
-                            }
-                        }
-                        description
-                    }
-                    feed {
-                        feed_item {
-                            description
-                            date
-                            id
-                        }
-                    }
-                }
-            }
-        }
-    }
-`;
-export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
-export const Document = gql`
-    {
         articles {
             data {
                 attributes {
@@ -1337,7 +1308,7 @@ export const Document = gql`
         }
     }
 `;
-export type QueryResult = Apollo.QueryResult<Query, QueryVariables>;
+
 export const ArticleDocument = gql`
     query Article($slug: String!, $locale: I18NLocaleCode) {
         articles(filters: { slug: { eq: $slug } }, locale: $locale) {
