@@ -10,7 +10,7 @@ interface ProfileCardProps {
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ description = '', title = '', picture }) => {
     return (
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-8">
             <div>
                 <h2 className="font-bold text-3xl md:text-5xl tracking-tight dark:text-white mb-2">
                     {title}

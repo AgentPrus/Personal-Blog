@@ -1,19 +1,23 @@
 import type { NextPage } from 'next';
 
 import Layout from '@/components/Layout';
+import Feed from '@/components/Feed';
 import ProfileCard from '@/components/ProfileCard';
 
 import client from '@/lib/apollo-client';
 import { GetAboutMeDataQuery } from 'services/about';
-import { ComponentAboutProfileCard } from 'generated/graphql-types';
+import { ComponentAboutFeed, ComponentAboutProfileCard } from 'generated/graphql-types';
 
 const AboutPage: NextPage<{
-    data: ComponentAboutProfileCard;
-}> = ({ data }: { data: ComponentAboutProfileCard }) => {
+    data: {
+        feed: ComponentAboutFeed;
+        card: ComponentAboutProfileCard;
+    };
+}> = ({ data: { feed, card } }) => {
     return (
         <Layout>
-            <ProfileCard title={data.title} description={data.description} picture={data.picture} />
-            {/* TODO: add vertical slider with my career path */}
+            <ProfileCard title={card.title} description={card.description} picture={card.picture} />
+            <Feed feed={feed} />
         </Layout>
     );
 };
@@ -23,9 +27,15 @@ export async function getStaticProps() {
         query: GetAboutMeDataQuery,
     });
 
+    const feed: ComponentAboutFeed = data.aboutMe.data.attributes.feed;
+    const card: ComponentAboutProfileCard = data.aboutMe.data.attributes['about_me_card'][0];
+
     return {
         props: {
-            data: data.aboutMe.data.attributes.about_me_card[0],
+            data: {
+                feed: feed,
+                card: card,
+            },
         },
     };
 }
