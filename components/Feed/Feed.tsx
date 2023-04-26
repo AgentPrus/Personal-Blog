@@ -2,7 +2,7 @@ import { ComponentAboutFeed } from 'generated/graphql-types';
 import FeedItem from './FeedItem/FeedItem';
 
 const Feed: React.FC<{ feed: ComponentAboutFeed }> = ({ feed }) => {
-    const feedItems = feed['feed_item'];
+    const feedItems = feed?.['feed_item'];
 
     return (
         <>
