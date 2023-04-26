@@ -48,7 +48,7 @@
         "@types/highlightjs": "^9.12.2",
         "@types/marked": "^4.0.1",
         "@types/node": "16.11.10",
-        "@types/react": "17.0.37",
+        "@types/react": "^18.2.0",
         "@types/react-syntax-highlighter": "^15.5.6",
         "autoprefixer": "^10.4.2",
         "eslint": "7",
