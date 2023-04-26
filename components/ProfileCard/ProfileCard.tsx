@@ -1,6 +1,6 @@
 import { Maybe, UploadFileEntityResponse } from 'generated/graphql-types';
-import { marked } from 'marked';
 import Image from 'next/image';
+import Markdown from '../common/Markdown/Markdown';
 
 interface ProfileCardProps {
     description?: Maybe<string>;
@@ -15,12 +15,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ description = '', title = '',
                 <h2 className="font-bold text-3xl md:text-5xl tracking-tight dark:text-white mb-2">
                     {title}
                 </h2>
-                <article
-                    className="prose dark:prose-invert"
-                    dangerouslySetInnerHTML={{
-                        __html: marked(description as string),
-                    }}
-                ></article>
+                <Markdown markdown={description as string} />
             </div>
             <div>
                 {picture?.data?.attributes && (
