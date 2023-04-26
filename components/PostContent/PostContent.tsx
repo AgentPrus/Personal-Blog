@@ -1,17 +1,14 @@
 import dayjs from 'dayjs';
 
-import { useMarked } from 'hooks/useMarked';
 import { ArticleEntity } from 'generated/graphql-types';
 
 import CustomImage from '@/components/common/CustomImage';
 
 import Categories from '../Categories';
 
-import 'highlight.js/styles/monokai-sublime.css';
+import Markdown from 'components/common/Markdown';
 
 const PostContent: React.FC<ArticleEntity> = ({ attributes }) => {
-    const { marked } = useMarked();
-
     return (
         <>
             <div>
@@ -34,14 +31,7 @@ const PostContent: React.FC<ArticleEntity> = ({ attributes }) => {
                 )}
             </div>
             <div className="blog-text mt-2">
-                {attributes?.content && (
-                    <article
-                        className="prose lg:prose-xl dark:prose-invert"
-                        dangerouslySetInnerHTML={{
-                            __html: marked(attributes?.content),
-                        }}
-                    ></article>
-                )}
+                {attributes?.content && <Markdown markdown={attributes?.content} />}
             </div>
         </>
     );

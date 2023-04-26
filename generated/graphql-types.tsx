@@ -23,6 +23,7 @@ export type AboutMe = {
     __typename?: 'AboutMe';
     about_me_card?: Maybe<Array<Maybe<ComponentAboutProfileCard>>>;
     createdAt?: Maybe<Scalars['DateTime']>;
+    feed?: Maybe<ComponentAboutFeed>;
     publishedAt?: Maybe<Scalars['DateTime']>;
     updatedAt?: Maybe<Scalars['DateTime']>;
 };
@@ -46,6 +47,7 @@ export type AboutMeEntityResponse = {
 
 export type AboutMeInput = {
     about_me_card?: InputMaybe<Array<InputMaybe<ComponentAboutProfileCardInput>>>;
+    feed?: InputMaybe<ComponentAboutFeedInput>;
     publishedAt?: InputMaybe<Scalars['DateTime']>;
 };
 
@@ -130,71 +132,6 @@ export type ArticleRelationResponseCollection = {
     data: Array<ArticleEntity>;
 };
 
-export type BookReview = {
-    __typename?: 'BookReview';
-    cover?: Maybe<UploadFileEntityResponse>;
-    createdAt?: Maybe<Scalars['DateTime']>;
-    description?: Maybe<Scalars['String']>;
-    locale?: Maybe<Scalars['String']>;
-    localizations?: Maybe<BookReviewRelationResponseCollection>;
-    publishedAt?: Maybe<Scalars['DateTime']>;
-    slug?: Maybe<Scalars['String']>;
-    title: Scalars['String'];
-    updatedAt?: Maybe<Scalars['DateTime']>;
-};
-
-export type BookReviewLocalizationsArgs = {
-    filters?: InputMaybe<BookReviewFiltersInput>;
-    pagination?: InputMaybe<PaginationArg>;
-    publicationState?: InputMaybe<PublicationState>;
-    sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-export type BookReviewEntity = {
-    __typename?: 'BookReviewEntity';
-    attributes?: Maybe<BookReview>;
-    id?: Maybe<Scalars['ID']>;
-};
-
-export type BookReviewEntityResponse = {
-    __typename?: 'BookReviewEntityResponse';
-    data?: Maybe<BookReviewEntity>;
-};
-
-export type BookReviewEntityResponseCollection = {
-    __typename?: 'BookReviewEntityResponseCollection';
-    data: Array<BookReviewEntity>;
-    meta: ResponseCollectionMeta;
-};
-
-export type BookReviewFiltersInput = {
-    and?: InputMaybe<Array<InputMaybe<BookReviewFiltersInput>>>;
-    createdAt?: InputMaybe<DateTimeFilterInput>;
-    description?: InputMaybe<StringFilterInput>;
-    id?: InputMaybe<IdFilterInput>;
-    locale?: InputMaybe<StringFilterInput>;
-    localizations?: InputMaybe<BookReviewFiltersInput>;
-    not?: InputMaybe<BookReviewFiltersInput>;
-    or?: InputMaybe<Array<InputMaybe<BookReviewFiltersInput>>>;
-    publishedAt?: InputMaybe<DateTimeFilterInput>;
-    slug?: InputMaybe<StringFilterInput>;
-    title?: InputMaybe<StringFilterInput>;
-    updatedAt?: InputMaybe<DateTimeFilterInput>;
-};
-
-export type BookReviewInput = {
-    cover?: InputMaybe<Scalars['ID']>;
-    description?: InputMaybe<Scalars['String']>;
-    publishedAt?: InputMaybe<Scalars['DateTime']>;
-    slug?: InputMaybe<Scalars['String']>;
-    title?: InputMaybe<Scalars['String']>;
-};
-
-export type BookReviewRelationResponseCollection = {
-    __typename?: 'BookReviewRelationResponseCollection';
-    data: Array<BookReviewEntity>;
-};
-
 export type BooleanFilterInput = {
     and?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
     between?: InputMaybe<Array<InputMaybe<Scalars['Boolean']>>>;
@@ -273,6 +210,44 @@ export type CategoryInput = {
 export type CategoryRelationResponseCollection = {
     __typename?: 'CategoryRelationResponseCollection';
     data: Array<CategoryEntity>;
+};
+
+export type ComponentAboutFeed = {
+    __typename?: 'ComponentAboutFeed';
+    feed_item?: Maybe<Array<Maybe<ComponentAboutFeedItem>>>;
+    id: Scalars['ID'];
+};
+
+export type ComponentAboutFeedFeed_ItemArgs = {
+    filters?: InputMaybe<ComponentAboutFeedItemFiltersInput>;
+    pagination?: InputMaybe<PaginationArg>;
+    sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ComponentAboutFeedInput = {
+    feed_item?: InputMaybe<Array<InputMaybe<ComponentAboutFeedItemInput>>>;
+    id?: InputMaybe<Scalars['ID']>;
+};
+
+export type ComponentAboutFeedItem = {
+    __typename?: 'ComponentAboutFeedItem';
+    date: Scalars['Date'];
+    description: Scalars['String'];
+    id: Scalars['ID'];
+};
+
+export type ComponentAboutFeedItemFiltersInput = {
+    and?: InputMaybe<Array<InputMaybe<ComponentAboutFeedItemFiltersInput>>>;
+    date?: InputMaybe<DateFilterInput>;
+    description?: InputMaybe<StringFilterInput>;
+    not?: InputMaybe<ComponentAboutFeedItemFiltersInput>;
+    or?: InputMaybe<Array<InputMaybe<ComponentAboutFeedItemFiltersInput>>>;
+};
+
+export type ComponentAboutFeedItemInput = {
+    date?: InputMaybe<Scalars['Date']>;
+    description?: InputMaybe<Scalars['String']>;
+    id?: InputMaybe<Scalars['ID']>;
 };
 
 export type ComponentAboutProfileCard = {
@@ -379,8 +354,9 @@ export type FloatFilterInput = {
 export type GenericMorph =
     | AboutMe
     | Article
-    | BookReview
     | Category
+    | ComponentAboutFeed
+    | ComponentAboutFeedItem
     | ComponentAboutProfileCard
     | I18NLocale
     | UploadFile
@@ -503,8 +479,6 @@ export type Mutation = {
     changePassword?: Maybe<UsersPermissionsLoginPayload>;
     createArticle?: Maybe<ArticleEntityResponse>;
     createArticleLocalization?: Maybe<ArticleEntityResponse>;
-    createBookReview?: Maybe<BookReviewEntityResponse>;
-    createBookReviewLocalization?: Maybe<BookReviewEntityResponse>;
     createCategory?: Maybe<CategoryEntityResponse>;
     createUploadFile?: Maybe<UploadFileEntityResponse>;
     createUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -514,7 +488,6 @@ export type Mutation = {
     createUsersPermissionsUser: UsersPermissionsUserEntityResponse;
     deleteAboutMe?: Maybe<AboutMeEntityResponse>;
     deleteArticle?: Maybe<ArticleEntityResponse>;
-    deleteBookReview?: Maybe<BookReviewEntityResponse>;
     deleteCategory?: Maybe<CategoryEntityResponse>;
     deleteUploadFile?: Maybe<UploadFileEntityResponse>;
     deleteUploadFolder?: Maybe<UploadFolderEntityResponse>;
@@ -535,7 +508,6 @@ export type Mutation = {
     resetPassword?: Maybe<UsersPermissionsLoginPayload>;
     updateAboutMe?: Maybe<AboutMeEntityResponse>;
     updateArticle?: Maybe<ArticleEntityResponse>;
-    updateBookReview?: Maybe<BookReviewEntityResponse>;
     updateCategory?: Maybe<CategoryEntityResponse>;
     updateFileInfo: UploadFileEntityResponse;
     updateUploadFile?: Maybe<UploadFileEntityResponse>;
@@ -564,17 +536,6 @@ export type MutationCreateArticleLocalizationArgs = {
     locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-export type MutationCreateBookReviewArgs = {
-    data: BookReviewInput;
-    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-export type MutationCreateBookReviewLocalizationArgs = {
-    data?: InputMaybe<BookReviewInput>;
-    id?: InputMaybe<Scalars['ID']>;
-    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
 export type MutationCreateCategoryArgs = {
     data: CategoryInput;
 };
@@ -596,11 +557,6 @@ export type MutationCreateUsersPermissionsUserArgs = {
 };
 
 export type MutationDeleteArticleArgs = {
-    id: Scalars['ID'];
-    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-export type MutationDeleteBookReviewArgs = {
     id: Scalars['ID'];
     locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
@@ -668,12 +624,6 @@ export type MutationUpdateArticleArgs = {
     locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 };
 
-export type MutationUpdateBookReviewArgs = {
-    data: BookReviewInput;
-    id: Scalars['ID'];
-    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
 export type MutationUpdateCategoryArgs = {
     data: CategoryInput;
     id: Scalars['ID'];
@@ -737,8 +687,6 @@ export type Query = {
     aboutMe?: Maybe<AboutMeEntityResponse>;
     article?: Maybe<ArticleEntityResponse>;
     articles?: Maybe<ArticleEntityResponseCollection>;
-    bookReview?: Maybe<BookReviewEntityResponse>;
-    bookReviews?: Maybe<BookReviewEntityResponseCollection>;
     categories?: Maybe<CategoryEntityResponseCollection>;
     category?: Maybe<CategoryEntityResponse>;
     i18NLocale?: Maybe<I18NLocaleEntityResponse>;
@@ -765,19 +713,6 @@ export type QueryArticleArgs = {
 
 export type QueryArticlesArgs = {
     filters?: InputMaybe<ArticleFiltersInput>;
-    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-    pagination?: InputMaybe<PaginationArg>;
-    publicationState?: InputMaybe<PublicationState>;
-    sort?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-export type QueryBookReviewArgs = {
-    id?: InputMaybe<Scalars['ID']>;
-    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-};
-
-export type QueryBookReviewsArgs = {
-    filters?: InputMaybe<BookReviewFiltersInput>;
     locale?: InputMaybe<Scalars['I18NLocaleCode']>;
     pagination?: InputMaybe<PaginationArg>;
     publicationState?: InputMaybe<PublicationState>;
@@ -1265,6 +1200,15 @@ export type Unnamed_1_Query = {
                         } | null;
                     } | null;
                 } | null> | null;
+                feed?: {
+                    __typename?: 'ComponentAboutFeed';
+                    feed_item?: Array<{
+                        __typename?: 'ComponentAboutFeedItem';
+                        description: string;
+                        date: any;
+                        id: string;
+                    } | null> | null;
+                } | null;
             } | null;
         } | null;
     } | null;
@@ -1285,6 +1229,7 @@ export type Unnamed_2_Query = {
 
 export type ArticleQueryVariables = Exact<{
     slug: Scalars['String'];
+    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
 }>;
 
 export type ArticleQuery = {
@@ -1317,9 +1262,11 @@ export type ArticleQuery = {
     } | null;
 };
 
-export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never }>;
+export type ArticlesQueryVariables = Exact<{
+    locale: Scalars['I18NLocaleCode'];
+}>;
 
-export type Unnamed_3_Query = {
+export type ArticlesQuery = {
     __typename?: 'Query';
     articles?: {
         __typename?: 'ArticleEntityResponseCollection';
@@ -1350,55 +1297,21 @@ export type Unnamed_3_Query = {
     } | null;
 };
 
-export type Unnamed_4_QueryVariables = Exact<{ [key: string]: never }>;
-
-export type Unnamed_4_Query = {
-    __typename?: 'Query';
-    bookReviews?: {
-        __typename?: 'BookReviewEntityResponseCollection';
-        data: Array<{
-            __typename?: 'BookReviewEntity';
-            attributes?: {
-                __typename?: 'BookReview';
-                slug?: string | null;
-                locale?: string | null;
-            } | null;
-        }>;
-    } | null;
-};
-
-export type BookReviewsQueryVariables = Exact<{
-    slug: Scalars['String'];
-    locale?: InputMaybe<Scalars['I18NLocaleCode']>;
-}>;
-
-export type BookReviewsQuery = {
-    __typename?: 'Query';
-    bookReviews?: {
-        __typename?: 'BookReviewEntityResponseCollection';
-        data: Array<{
-            __typename?: 'BookReviewEntity';
-            attributes?: {
-                __typename?: 'BookReview';
-                slug?: string | null;
-                title: string;
-                description?: string | null;
-                createdAt?: any | null;
-                cover?: {
-                    __typename?: 'UploadFileEntityResponse';
-                    data?: {
-                        __typename?: 'UploadFileEntity';
-                        attributes?: { __typename?: 'UploadFile'; formats?: any | null } | null;
-                    } | null;
-                } | null;
-            } | null;
-        }>;
-    } | null;
-};
+export const Document = gql`
+    {
+        articles {
+            data {
+                attributes {
+                    title
+                }
+            }
+        }
+    }
+`;
 
 export const ArticleDocument = gql`
-    query Article($slug: String!) {
-        articles(filters: { slug: { eq: $slug } }) {
+    query Article($slug: String!, $locale: I18NLocaleCode) {
+        articles(filters: { slug: { eq: $slug } }, locale: $locale) {
             data {
                 attributes {
                     title
@@ -1424,26 +1337,22 @@ export const ArticleDocument = gql`
     }
 `;
 export type ArticleQueryResult = Apollo.QueryResult<ArticleQuery, ArticleQueryVariables>;
-export const Document = gql`
-    {
-        bookReviews {
+export const ArticlesDocument = gql`
+    query Articles($locale: I18NLocaleCode!) {
+        articles(locale: $locale, sort: "publicationDate:desc") {
             data {
                 attributes {
-                    slug
-                    locale
-                }
-            }
-        }
-    }
-`;
-export const BookReviewsDocument = gql`
-    query BookReviews($slug: String!, $locale: I18NLocaleCode) {
-        bookReviews(filters: { slug: { eq: $slug } }, locale: $locale) {
-            data {
-                attributes {
-                    slug
                     title
-                    description
+                    excerpt
+                    slug
+                    publicationDate
+                    categories {
+                        data {
+                            attributes {
+                                name
+                            }
+                        }
+                    }
                     cover {
                         data {
                             attributes {
@@ -1451,13 +1360,9 @@ export const BookReviewsDocument = gql`
                             }
                         }
                     }
-                    createdAt
                 }
             }
         }
     }
 `;
-export type BookReviewsQueryResult = Apollo.QueryResult<
-    BookReviewsQuery,
-    BookReviewsQueryVariables
->;
+export type ArticlesQueryResult = Apollo.QueryResult<ArticlesQuery, ArticlesQueryVariables>;
