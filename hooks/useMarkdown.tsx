@@ -15,6 +15,7 @@ import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
 import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown';
 import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json';
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import CopyButton from '@/components/common/CopyButton/CopyButton';
 
 export const useMarkdown = () => {
     const components: Components = {
@@ -36,6 +37,7 @@ export const useMarkdown = () => {
         ),
         pre: ({ children }) => (
             <div className="relative not-prose">
+                <CopyButton>{children}</CopyButton>
                 <pre>{children}</pre>
             </div>
         ),
